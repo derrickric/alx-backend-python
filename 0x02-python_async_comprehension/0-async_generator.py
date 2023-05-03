@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-"""Module: 0-async generator"""
-from typing import Generator
+"""Module: 0-main"""
 import asyncio
-import random
+from typing import List
+async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_generator() -> Generator[float, None, None]:
-    """yields a random number for each iteration"""
-    for _ in range(10):
-        await asyncio.sleep(1)
-        yield random.uniform(0, 10)
+async def print_yielded_values() -> None:
+    """Coroutine that prints the values yielded by async_generator"""
+    result: List[float] = []
+    async for i in async_generator():
+        result.append(i)
+    print(result)
+
+
+asyncio.run(print_yielded_values())
+
